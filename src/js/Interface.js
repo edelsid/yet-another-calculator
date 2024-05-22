@@ -17,18 +17,37 @@ export default class Interface {
   }
 
   init() {
-    this.numbers.addEventListener('click', (e) => {
-      if (!this.operation) this.setFigure(e.target.id, 'firstFigure');
-      else this.setFigure(e.target.id, 'secondFigure');
-    });
+    this.numbers.addEventListener('click', (e) => this.operationCheck(e.target.id));
+    document.body.addEventListener('keydown', (e) => this.keyboardEvent(e));
     this.operations.addEventListener('click', (e) => this.setOperation(e.target.id));
     this.changeDisplay(this.firstFigure);
   }
 
+  operationCheck(value) {
+    if (!this.operation) this.setFigure(value, 'firstFigure');
+    else this.setFigure(value, 'secondFigure');
+  }
+
+  keyboardEvent(e) {
+    const { ctrlKey, altKey, shiftKey } = e;
+    let { key } = e;
+    if (ctrlKey || altKey || shiftKey) return;
+    if (key === 'Enter') key = '=';
+    const regOperation = /(c|=|\+|-|\*|\/){1}/gi;
+    const regFigure = /\d|\./g;
+    if (regOperation.test(key)) {
+      this.setOperation(key);
+      return;
+    }
+    if (regFigure.test(key)) this.operationCheck(key);
+  }
+
   setFigure(value, label) {
-    if (this[label].includes('.') && value === '.') return;
-    if (this[label] === '0') this[label] = value;
+    if (this[label].toString().includes('.') && value === '.') return;
+    if (this[label] === '0' && value === '.') this[label] = '0.';
+    else if (this[label] === '0') this[label] = value;
     else this[label] += value;
+
     if (label === 'firstFigure') {
       this.changeDisplay(this.firstFigure);
       return;
@@ -37,7 +56,7 @@ export default class Interface {
   }
 
   setOperation(value) {
-    if (value === 'C') {
+    if (value === 'C' || value === 'c') {
       this.firstFigure = '0';
       this.changeDisplay(this.firstFigure);
       this.clear();
