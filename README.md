@@ -1,5 +1,9 @@
 # Yet Another Calculator
 
+[![pages-build-deployment](https://github.com/edelsid/yet-another-calculator/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/edelsid/yet-another-calculator/actions/workflows/pages/pages-build-deployment)
+
+[GitHub Pages](https://edelsid.github.io/yet-another-calculator/)
+
 This is a simple project I've made to test my basic skills in HTML, CSS and JavaScript.
 
 Like many calculators done by novice programmers over the years, this one does not boast any advanced functionality. It was done out of personal desire and is in fact the first task that was set, designed and coded entirely by myself, without help of mentors.
